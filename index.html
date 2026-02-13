@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Proposal 💍</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Segoe UI',sans-serif;
+    overflow:hidden;
+    color:white;
+    background:#000;
+}
+
+/* 🌌 Aurora Background */
+body::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,#ff00cc,#3333ff,#00f2ff,#ff00cc);
+    background-size:400% 400%;
+    animation:aurora 18s ease infinite;
+    opacity:0.25;
+    z-index:-3;
+}
+@keyframes aurora{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* ✨ Stars */
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 2s infinite ease-in-out;
+}
+@keyframes twinkle{
+    50%{opacity:0.2;}
+}
+
+/* 🌹 Rose petals */
+.petal{
+    position:absolute;
+    top:-20px;
+    animation:fall linear forwards;
+}
+@keyframes fall{
+    to{transform:translateY(110vh) rotate(360deg);opacity:0;}
+}
+
+/* 💎 Card */
+.card{
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(25px);
+    width:90%;
+    max-width:420px;
+    padding:30px;
+    border-radius:32px;
+    text-align:center;
+    box-shadow:0 0 70px rgba(255,77,109,.8);
+    z-index:2;
+    animation:float 4s ease-in-out infinite;
+}
+@keyframes float{50%{transform:translateY(-12px);}}
+
+/* 💖 Heart line */
+.heart-line{
+    font-size:22px;
+    margin:10px 0;
+    animation:heartbeat 1.4s infinite;
+}
+@keyframes heartbeat{
+    50%{transform:scale(1.25);}
+}
+
+h1{color:#ff7aa2;margin-bottom:8px;}
+p{color:#eee;margin-bottom:15px;}
+
+/* Buttons */
+button{
+    padding:12px 26px;
+    border:none;
+    border-radius:24px;
+    font-size:16px;
+    margin:8px;
+    cursor:pointer;
+}
+.yes-btn{
+    background:linear-gradient(135deg,#ff4d6d,#ff85a1);
+    color:white;
+    box-shadow:0 0 35px #ff4d6d;
+    animation:pulse 1.6s infinite;
+}
+@keyframes pulse{50%{transform:scale(1.1);}}
+
+.no-btn{
+    background:#444;
+    color:white;
+    position:absolute;
+}
+
+/* Celebration */
+#celebrate{
+    display:none;
+    text-align:center;
+}
+#celebrate h2{
+    color:#ff85a1;
+    margin:15px 0;
+    font-size:28px;
+}
+
+/* 🎆 Fireworks */
+.fire{
+    position:absolute;
+    width:6px;height:6px;
+    background:#ff85a1;
+    border-radius:50%;
+    animation:boom 1.6s ease-out forwards;
+}
+@keyframes boom{
+    to{transform:translate(var(--x),var(--y));opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+    <h1>Ishu ❤️</h1>
+    <div class="heart-line">💖 💕 💗 💞 💘</div>
+    <p>You are my forever and always ✨</p>
+    <p><strong>Will you marry me?</strong></p>
+
+    <button class="yes-btn" onclick="yesClicked()">YES 💍</button>
+    <button class="no-btn" onclick="moveNo()">NO 🙈</button>
+</div>
+
+<div class="card" id="celebrate">
+    <h2>She said YES 💍💖</h2>
+    <div class="heart-line">💖 💕 💗 💞 💘</div>
+    <p>This is our beautiful beginning ❤️</p>
+    <button class="yes-btn" onclick="shareWhatsApp()">📤 Share on WhatsApp</button>
+</div>
+
+<audio id="song" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+<script>
+/* ✨ Generate Stars */
+for(let i=0;i<120;i++){
+    let s=document.createElement("div");
+    s.className="star";
+    s.style.left=Math.random()*100+"vw";
+    s.style.top=Math.random()*100+"vh";
+    s.style.animationDelay=Math.random()*2+"s";
+    document.body.appendChild(s);
+}
+
+/* 🌹 Rose petals */
+setInterval(()=>{
+    let p=document.createElement("div");
+    p.className="petal";
+    p.innerHTML="🌹";
+    p.style.left=Math.random()*100+"vw";
+    p.style.fontSize=Math.random()*18+16+"px";
+    p.style.animationDuration=Math.random()*4+6+"s";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),9000);
+},500);
+
+/* 🙈 NO escape */
+function moveNo(){
+    const b=document.querySelector(".no-btn");
+    b.style.left=Math.random()*60+"%";
+    b.style.top=Math.random()*60+"%";
+}
+
+/* 🎆 Fireworks */
+function fireworks(x,y){
+    for(let i=0;i<60;i++){
+        let f=document.createElement("div");
+        f.className="fire";
+        f.style.left=x+"px";
+        f.style.top=y+"px";
+        f.style.setProperty("--x",(Math.random()*400-200)+"px");
+        f.style.setProperty("--y",(Math.random()*400-200)+"px");
+        document.body.appendChild(f);
+        setTimeout(()=>f.remove(),1600);
+    }
+}
+
+function yesClicked(){
+    document.getElementById("card").style.display="none";
+    document.getElementById("celebrate").style.display="block";
+    document.getElementById("song").play();
+
+    const r=document.getElementById("celebrate").getBoundingClientRect();
+    fireworks(r.left+r.width/2,r.top+r.height/2);
+}
+
+function shareWhatsApp(){
+    const msg="She said YES 💍💖\nOur forever starts now ❤️";
+    window.open("https://wa.me/?text="+encodeURIComponent(msg));
+}
+</script>
+
+</body>
+</html>
